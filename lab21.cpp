@@ -14,7 +14,15 @@ public:
     Goat() //default constructor
     {
         age = (rand()%20)+1; //random variable (1-20)
-        name = *(names[(rand()%15)+1]); 
+        name = names[rand()%15]; // random member of array of names
+        color = colors[rand()%15]; // random member of array of colors
+    }
+
+    Goat(int a, string n, string c) //full parameter constructor
+    {
+        age = a;
+        name = n;
+        color = c;
     }
 
     void printAll() const //to ensure variables set properly
@@ -28,9 +36,8 @@ private:
     int age;
     string name;
     string color;
-    string *names; //pointer to array of 15 names
-    string *colors; //pointer to array 15 colors
-};
+    static const string names = {}; 
+    static const string colors = {}; 
 
 class DoublyLinkedList {
 private:
@@ -162,11 +169,12 @@ public:
 
 // Driver program
 int main() {
-
     //variable initializaition
     srand(time(0)); //seed time-dependent random
     DoublyLinkedList list;
     int size = rand() % (MAX_LS-MIN_LS+1) + MIN_LS;
+
+    //reference to array of goats? 
 
     for (int i = 0; i < size; ++i)
         list.push_back(rand() % (MAX_NR-MIN_NR+1) + MIN_NR);
