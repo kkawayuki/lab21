@@ -1,4 +1,4 @@
-// COMSC-210 | lab 22 | Kent Kawashima
+// COMSC-210 | lab 21 | Kent Kawashima
 // IDE used: Visual Studio Code
 #include <iostream>
 #include <string>
