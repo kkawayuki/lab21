@@ -6,10 +6,10 @@
 #include <random>
 using namespace std;
 
-//global variables
+// global variables
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20, ARRSIZE = 15; // included array size
 
-//class: Goat
+// class: Goat
 class Goat
 {
 public:
@@ -50,23 +50,20 @@ private:
         "Silver", "Ash", "Ivory", "Ebony", "Mahogany"};
 };
 
-//class: DoublyLinkedList
+// class: DoublyLinkedList
 class DoublyLinkedList
 {
+friend Goat; //so that DoublyLinkedList can access Goat methods
+
 private:
     struct Node
     {
-        int data;
+        Goat g; //each member in linked list has a node, goat, pointers to head/tail.
         Node *prev;
         Node *next;
-        Node(int val, Node *p = nullptr, Node *n = nullptr)
-        {
-            data = val;
-            prev = p;
-            next = n;
-        }
     };
 
+    
     Node *head;
     Node *tail;
 
@@ -78,9 +75,9 @@ public:
         tail = nullptr;
     }
 
-    void push_back(int value)
+    void push_back(Goat g) //modified to push back goats
     {
-        Node *newNode = new Node(value);
+        Node *newGoat = new Node(g);
         if (!tail) // if there's no tail, the list is empty
             head = tail = newNode;
         else
@@ -212,12 +209,15 @@ public:
 // Driver program
 int main()
 {
-    // variable initializaition
     srand(time(0)); // seed time-dependent random
-    DoublyLinkedList list;
-    int size = rand() % (MAX_LS - MIN_LS + 1) + MIN_LS;
 
-    // reference to array of goats?
+    // variable initializaition
+    DoublyLinkedList list;
+    int size = (rand() % 15) + 5; // size of array random (5-20)
+    for (int i = 0; i > size; i++)
+    {
+        //logic to push_front() goat objects
+    }
 
     // for (int i = 0; i < size; ++i)
     //     list.push_back(rand() % (MAX_NR - MIN_NR + 1) + MIN_NR);
@@ -231,9 +231,6 @@ int main()
     // list.~DoublyLinkedList();
     // cout << "List forward: ";
     // list.print();
-
-    Goat test1;
-    test1.printAll();
 
     return 0;
 }
