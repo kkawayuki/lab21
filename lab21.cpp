@@ -58,12 +58,15 @@ friend Goat; //so that DoublyLinkedList can access Goat methods
 private:
     struct Node
     {
-        Goat g; //each member in linked list has a node, goat, pointers to head/tail.
+        Goat g; //each member in linked list has a goat
         Node *prev;
         Node *next;
+
+        Node(const Goat &goat ,Node* p = nullptr, Node* n = nullptr) //constructor, takes in goat as parameter
+        : g(goat), prev(p), next(n)
+        {}
     };
 
-    
     Node *head;
     Node *tail;
 
@@ -75,9 +78,9 @@ public:
         tail = nullptr;
     }
 
-    void push_back(Goat g) //modified to push back goats
+    void push_back(const Goat &goat) //modified to push back goats
     {
-        Node *newGoat = new Node(g);
+        Node *newNode = new Node(goat);
         if (!tail) // if there's no tail, the list is empty
             head = tail = newNode;
         else
@@ -88,9 +91,9 @@ public:
         }
     }
 
-    void push_front(int value)
+    void push_front(const Goat &goat)
     {
-        Node *newNode = new Node(value);
+        Node *newNode = new Node(goat);
         if (!head) // if there's no head, the list is empty
             head = tail = newNode;
         else
@@ -101,42 +104,42 @@ public:
         }
     }
 
-    void insert_after(int value, int position)
-    {
-        if (position < 0)
-        {
-            cout << "Position must be >= 0." << endl;
-            return;
-        }
+    // void insert_after(int value, int position)
+    // {
+    //     if (position < 0)
+    //     {
+    //         cout << "Position must be >= 0." << endl;
+    //         return;
+    //     }
 
-        Node *newNode = new Node(value);
-        if (!head)
-        {
-            head = tail = newNode;
-            return;
-        }
+    //     Node *newNode = new Node(value);
+    //     if (!head)
+    //     {
+    //         head = tail = newNode;
+    //         return;
+    //     }
 
-        Node *temp = head;
-        for (int i = 0; i < position && temp; ++i)
-            temp = temp->next;
+    //     Node *temp = head;
+    //     for (int i = 0; i < position && temp; ++i)
+    //         temp = temp->next;
 
-        if (!temp)
-        {
-            cout << "Position exceeds list size. Node not inserted.\n";
-            delete newNode;
-            return;
-        }
+    //     if (!temp)
+    //     {
+    //         cout << "Position exceeds list size. Node not inserted.\n";
+    //         delete newNode;
+    //         return;
+    //     }
 
-        newNode->next = temp->next;
-        newNode->prev = temp;
-        if (temp->next)
-            temp->next->prev = newNode;
-        else
-            tail = newNode; // Inserting at the end
-        temp->next = newNode;
-    }
+    //     newNode->next = temp->next;
+    //     newNode->prev = temp;
+    //     if (temp->next)
+    //         temp->next->prev = newNode;
+    //     else
+    //         tail = newNode; // Inserting at the end
+    //     temp->next = newNode;
+    // }
 
-    void delete_node(int value)
+    // void delete_node(int value)
     {
         if (!head)
             return; // Empty list
