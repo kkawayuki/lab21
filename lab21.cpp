@@ -28,13 +28,13 @@ public:
     }
 
     /************************************************
-     * Function: Prints out all goat fields with 
-     * a tab for formatting. 
+     * Function: Prints out all goat fields with
+     * a tab for formatting.
      *
      * Parameters: NONE
      * Return: NONE
      ************************************************/
-    void printGoatFields() const //insert Goat field pun
+    void printGoatFields() const // insert Goat field pun
     {
         cout << '\t' << name << " (" << color << ", " << age << ")\n";
     }
@@ -59,6 +59,7 @@ private:
 class DoublyLinkedList
 {
 private:
+    // struct Node
     struct Node
     {
         Goat g; // each Node in linked list has a goat!
@@ -67,7 +68,8 @@ private:
 
         Node(const Goat &goat, Node *p = nullptr, Node *n = nullptr) // constructor, takes in goat as parameter
             : g(goat), prev(p), next(n)                              // brackets don't work for mine for some reason, g(goat) uses the copy constructor to fully assign relevant fields.
-        {}
+        {
+        }
     };
 
     Node *head;
@@ -81,7 +83,16 @@ public:
         tail = nullptr;
     }
 
-    void push_back(const Goat &goat) 
+    /************************************************
+     * Function: appends a Node to the back of the
+     * linked list
+     *
+     * Parameters: &goat, reference to a randomly
+     * generated goat object, used in this function
+     * to populate the Goat that each Node contains.
+     * Return: NONE
+     ************************************************/
+    void push_back(const Goat &goat)
     {
         Node *newNode = new Node(goat);
         if (!tail) // if there's no tail, the list is empty
@@ -94,6 +105,15 @@ public:
         }
     }
 
+    /************************************************
+     * Function: appends a Node to the front of the
+     * linked list
+     *
+     * Parameters: &goat, reference to a randomly
+     * generated goat object, used in this function
+     * to populate the Goat that each Node contains.
+     * Return: NONE
+     ************************************************/
     void push_front(const Goat &goat)
     {
         Node *newNode = new Node(goat);
@@ -178,6 +198,16 @@ public:
 
     */
 
+    /************************************************
+     * Function: prints all information from nodes
+     * in the LinkedList from head to tail, able to
+     * reference the Goat methods due to the
+     * compositional relationship between
+     * Node having a Goat.
+     *
+     * Parameters: NONE
+     * Return: NONE
+     ************************************************/
     void print()
     {
         Node *current = head;
@@ -195,6 +225,14 @@ public:
         cout << endl;
     }
 
+    /************************************************
+     * Function: prints all information from nodes
+     * in the LinkedList from tail to head, using
+     * Goat method printGoatFields().
+     *
+     * Parameters: NONE
+     * Return: NONE
+     ************************************************/
     void print_reverse()
     {
         Node *current = tail;
@@ -211,8 +249,8 @@ public:
         cout << endl;
     }
 
-    //destructor
-    ~DoublyLinkedList() 
+    // destructor
+    ~DoublyLinkedList()
     {
         while (head)
         {
@@ -223,24 +261,25 @@ public:
     }
 };
 
-// Driver program
+/************************************************
+ * Function: Main
+ ************************************************/
 int main()
 {
-    // seed time-dependent random variable
-    srand(time(0)); 
+    srand(time(0)); // seed random
 
     // variable initializaition
-    int size = (rand() % 15) + 5; // size of array random (5-20)
+    int size = (rand() % 15) + 5; // random size (5-20)
     DoublyLinkedList list;
 
-    // assignment loop
+    // populate Linked List
     for (int i = 0; i < size; i++)
     {
-        Goat temp; //create a temp goat
-        list.push_back(temp); //push back the goat by reference
+        Goat temp;
+        list.push_back(temp);
     }
 
-    //Output manipulation with full list
+    // Output manipulation with full list
     cout << "Forward: \n";
     list.print();
 
