@@ -13,10 +13,11 @@ class Goat
 public:
     Goat() //default constructor
     {
-        
+        age = (rand()%20)+1; //random variable (1-20)
+        name = *(names[(rand()%15)+1]); 
     }
 
-    void printAll() const
+    void printAll() const //to ensure variables set properly
     {
         cout << "age: " << age << '\n';
         cout << "name: " << name << '\n';
