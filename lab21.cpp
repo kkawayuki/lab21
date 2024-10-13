@@ -27,11 +27,9 @@ public:
         color = c;
     }
 
-    void printAll() const // to ensure variables set properly
+    void printGoatFields() const //get it? Goat Fields? Do goats graze in fields? Are goats herbivores? not too sure on this one but probably still a pun. 
     {
-        cout << "Age: " << age << '\n';
-        cout << "Name: " << name << '\n';
-        cout << "Color: " << color << '\n';
+        cout << '\t' << name << " (" << color << ", " << age << ")\n";
     }
 
 private:
@@ -63,7 +61,7 @@ private:
         Node *next;
 
         Node(const Goat &goat ,Node* p = nullptr, Node* n = nullptr) //constructor, takes in goat as parameter
-        : g(goat), prev(p), next(n)
+        : g(goat), prev(p), next(n) // brackets don't work for mine for some reason
         {}
     };
 
@@ -104,42 +102,43 @@ public:
         }
     }
 
-    // void insert_after(int value, int position)
-    // {
-    //     if (position < 0)
-    //     {
-    //         cout << "Position must be >= 0." << endl;
-    //         return;
-    //     }
+    /* temporarily disable for ease of use
 
-    //     Node *newNode = new Node(value);
-    //     if (!head)
-    //     {
-    //         head = tail = newNode;
-    //         return;
-    //     }
+    void insert_after(int value, int position)
+    {
+        if (position < 0)
+        {
+            cout << "Position must be >= 0." << endl;
+            return;
+        }
 
-    //     Node *temp = head;
-    //     for (int i = 0; i < position && temp; ++i)
-    //         temp = temp->next;
+        Node *newNode = new Node(value);
+        if (!head)
+        {
+            head = tail = newNode;
+            return;
+        }
 
-    //     if (!temp)
-    //     {
-    //         cout << "Position exceeds list size. Node not inserted.\n";
-    //         delete newNode;
-    //         return;
-    //     }
+        Node *temp = head;
+        for (int i = 0; i < position && temp; ++i)
+            temp = temp->next;
 
-    //     newNode->next = temp->next;
-    //     newNode->prev = temp;
-    //     if (temp->next)
-    //         temp->next->prev = newNode;
-    //     else
-    //         tail = newNode; // Inserting at the end
-    //     temp->next = newNode;
-    // }
+        if (!temp)
+        {
+            cout << "Position exceeds list size. Node not inserted.\n";
+            delete newNode;
+            return;
+        }
 
-    // void delete_node(int value)
+        newNode->next = temp->next;
+        newNode->prev = temp;
+        if (temp->next)
+            temp->next->prev = newNode;
+        else
+            tail = newNode; // Inserting at the end
+        temp->next = newNode;
+    }
+    void delete_node(int value)
     {
         if (!head)
             return; // Empty list
@@ -172,15 +171,21 @@ public:
         delete temp;
     }
 
+    */
+
     void print()
     {
         Node *current = head;
         if (!current)
+        {
+            cout << "empty";
             return;
+        }
+            
         while (current)
         {
-            cout << current->data << " ";
-            current = current->next;
+            current->g.printGoatFields(); //print all information about goat
+            current = current->next; //move to next
         }
         cout << endl;
     }
@@ -192,8 +197,8 @@ public:
             return;
         while (current)
         {
-            cout << current->data << " ";
-            current = current->prev;
+            current->g.printGoatFields(); //same deal in reverse order
+            current = current->prev; //go previous
         }
         cout << endl;
     }
@@ -217,23 +222,25 @@ int main()
     // variable initializaition
     DoublyLinkedList list;
     int size = (rand() % 15) + 5; // size of array random (5-20)
-    for (int i = 0; i > size; i++)
+
+    //assignment loop
+    for (int i = 0; i < size; i++)
     {
-        //logic to push_front() goat objects
+        Goat temp;
+        list.push_back(temp); // see how this works
     }
 
-    // for (int i = 0; i < size; ++i)
-    //     list.push_back(rand() % (MAX_NR - MIN_NR + 1) + MIN_NR);
-    // cout << "List forward: ";
-    // list.print();
+    cout << "Forward: \n";
+    list.print();
 
-    // cout << "List backward: ";
-    // list.print_reverse();
+    cout << "Backward: \n";
+    list.print_reverse();
 
-    // cout << "Deleting list, then trying to print.\n";
-    // list.~DoublyLinkedList();
-    // cout << "List forward: ";
-    // list.print();
+    cout << "Deleting list, then trying to print.\n";
+    list.~DoublyLinkedList();
+
+    cout << "List forward: ";
+    list.print();
 
     return 0;
 }
